@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Image Watermark Tool</title>
+<title>Markr.exe - Image watermarking</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 
@@ -71,12 +71,12 @@ style="max-width:100%; max-height:80vh; object-fit:contain;"
 </div>
 
 {% if filename %}
-<a href="/outputs/{{ filename }}" download>
+<a href="/outputs/{{ filename }}" download onclick="setTimeout(() => location.reload(), 500)">
 <button class="download-btn">Download Image</button>
 </a>
 {% else %}
 <button class="download-btn" disabled>Download Image</button>
-{% endif %}}
+{% endif %}
 
 </div>
 
