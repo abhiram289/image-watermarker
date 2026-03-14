@@ -2,34 +2,203 @@
 <html>
 
 <head>
+
 <title>Image Watermark Tool</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary-color:#ffffff;
+    --secondary-color:#cccccc;
+    --accent-color:#00ff88;
+    --paper-color:#0a0a0a;
+    --grid-color:rgba(255,255,255,0.08);
+
+    --border-color:rgba(255,255,255,0.22);
+
+    --card-bg:rgba(255,255,255,0.03);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Space Mono", monospace;
+    background:var(--paper-color);
+    color:var(--primary-color);
+    padding:3rem;
+}
+
+
+.paper{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    background:
+        linear-gradient(90deg,var(--grid-color) 1px,transparent 1px),
+        linear-gradient(var(--grid-color) 1px,transparent 1px);
+    background-size:30px 30px;
+}
+
+
+h1{
+    font-weight:400;
+    font-size:2.5rem;
+    margin-bottom:2.5rem;
+    background:linear-gradient(135deg,#fff,#00ff88);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+
+.wrapper{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:60px;
+}
+
+
+.controls{
+    background:var(--card-bg);
+    border:1px solid var(--border-color);
+    border-radius:8px;
+    padding:2rem;
+}
+
+
+input[type="text"], select{
+    width:100%;
+    background:#0a0a0a;
+    border:1px solid var(--border-color);
+    color:white;
+    padding:10px;
+    margin-top:10px;
+}
+
+
+input[type="range"]{
+    width:100%;
+    margin-top:10px;
+}
+
+
+input[type="file"]{
+    margin-bottom:20px;
+}
+
+
+label{
+    display:block;
+    margin-top:1.5rem;
+    color:var(--secondary-color);
+}
+
+
+button{
+    margin-top:20px;
+    padding:10px 16px;
+    background:transparent;
+    border:1px solid var(--border-color);
+    color:white;
+    cursor:pointer;
+    transition:all .25s ease;
+}
+
+button:hover{
+    border-color:var(--accent-color);
+    color:var(--accent-color);
+    background:rgba(0,255,136,0.05);
+    box-shadow:0 0 8px rgba(0,255,136,0.25);
+}
+
+
+.preview{
+    background:var(--card-bg);
+    border:1px solid var(--border-color);
+    border-radius:8px;
+    padding:2rem;
+}
+
+
+.preview img{
+    max-width:100%;
+    border:1px solid var(--border-color);
+    margin-top:1rem;
+}
+
+
+.download-btn{
+    margin-top:1rem;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>Upload Image</h2>
+<div class="paper"></div>
+
+<h1>Image Watermark Tool</h1>
+
+<div class="wrapper">
+
+<div class="controls">
 
 <form method="POST" enctype="multipart/form-data">
 
 <input type="file" name="image" required>
 
-<br><br>
-
 <input type="text" name="watermark" placeholder="Enter watermark text">
 
-<br><br>
+<label>Position</label>
+
+<select name="position">
+<option value="bottom-right">Bottom Right</option>
+<option value="bottom-left">Bottom Left</option>
+<option value="top-right">Top Right</option>
+<option value="top-left">Top Left</option>
+<option value="center">Center</option>
+</select>
+
+<label>Opacity</label>
+
+<input type="range" name="opacity" min="40" max="200" value="100">
 
 <button type="submit">Generate Watermark</button>
 
 </form>
 
+</div>
+
+<div class="preview">
+
 {% if filename %}
 
-<h3>Watermarked Image</h3>
+<h2>Watermarked Image</h2>
 
-<img src="/outputs/{{ filename }}" width="400">
+<img src="/outputs/{{ filename }}">
+
+<br><br>
+
+<a href="/outputs/{{ filename }}" download>
+<button class="download-btn">Download Image</button>
+</a>
 
 {% endif %}
 
+</div>
+
+</div>
+
 </body>
+
 </html>
