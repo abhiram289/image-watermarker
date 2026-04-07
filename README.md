@@ -22,4 +22,4 @@ Markr.exe lets you quickly add text watermarks to images with customizable posit
 
 ## Author
 
-Made by **abhiram289**
+ **abhiram289**
